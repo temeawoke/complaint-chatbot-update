@@ -1,0 +1,14 @@
+pandas
+numpy
+matplotlib
+seaborn
+nltk
+wordcloud
+transformers
+torch
+faiss-cpu
+sentence-transformers
+streamlit
+sentence-transformers
+faiss-cpu
+transformers
