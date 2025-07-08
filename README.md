@@ -33,8 +33,12 @@ complaint-chatbot/
 │ ├── processed/ # Cleaned & filtered data
 ├── notebooks/
 │ └── 1.0-eda.ipynb # Exploratory Data Analysis
-│ └── text_chunking_embedding.ipynb # # For text chunking, # For generating embeddings, # For saving to vector store
+│ └── text_chunking_embedding.ipynb # # For text chunking, # For generating embeddings, # For saving to ├──vector store
+│ └── complaints_index.faiss # 
+│ └── complaints_metadata.pkl # 
 ├── src/
+│   └── rag_pipeline.py #
+│   └── chunk_embed_index.py #
 │ ├── eda.py # EDA script (optional)
 │ ├── preprocessing.py # Text cleaning & normalization
 ├── .github/
@@ -128,3 +132,26 @@ pip install -r requirements.txt
     Integrate with LangChain for RAG-based answering
 
     Add summarization or classification layers
+
+    # RAG Pipeline Evaluation Report
+
+| Question | Generated Answer | Retrieved Snippets | Quality Score (1-5) | Comments |
+|----------|------------------|--------------------|----------------------|----------|
+| Why was my credit card denied? | The credit card was denied due to a low credit score and missing documentation. | "The company stated they couldn't verify my income..." | 5 | Answer is accurate, supported by retrieved data |
+| What are common issues with Buy Now Pay Later? | Many users report delayed refunds and unclear terms. | "I returned the item but didn't get a refund for weeks..." | 4 | Good summary, could include more nuance |
+| Why was my savings account frozen? | The account was frozen due to suspected fraud. | "My account was flagged for fraud without notice..." | 5 | Fully supported by retrieved context |
+
+## 🔍 Final Analysis
+
+- **What worked well**: The retriever accurately surfaced semantically relevant chunks; Mistral-7B-Instruct handled financial queries well with context.
+- **Challenges**: Long chunks sometimes led to repeated phrasing in generated output. Short context improved clarity.
+- **Improvement Ideas**:
+  - Experiment with different chunking sizes
+  - Consider reranking top 10 results for diversity
+  - Add feedback loop to let users rate answer quality
+
+### 📈 Suggestions
+
+- Add chunk filtering or reranking to improve diversity in top-k.
+- Explore adding metadata (e.g., date, product) to the prompt to improve specificity.
+- Try hybrid search (dense + keyword-based) for harder queries.
