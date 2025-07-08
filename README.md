@@ -155,3 +155,91 @@ pip install -r requirements.txt
 - Add chunk filtering or reranking to improve diversity in top-k.
 - Explore adding metadata (e.g., date, product) to the prompt to improve specificity.
 - Try hybrid search (dense + keyword-based) for harder queries.
+
+
+🔒 Limitations & Future Work
+
+    No live feedback or streaming yet
+
+    Chunk reranking could improve relevance
+
+    Could support multilingual queries
+  pip install -r requirements.txt
+
+    If you don't have a requirements.txt, here's a basic one:
+
+streamlit
+pandas
+sentence-transformers
+faiss-cpu
+transformers
+
+🚀 Running the App
+
+Start the chatbot:
+
+streamlit run app.py
+
+🧠 How It Works
+1. Text Chunking
+
+Long complaint narratives are chunked using LangChain's RecursiveCharacterTextSplitter.
+2. Embedding
+
+Each chunk is embedded using sentence-transformers/all-MiniLM-L6-v2.
+3. FAISS Vector Indexing
+
+Embeddings are stored in a FAISS vector index for fast similarity search.
+4. RAG Inference
+
+At query time:
+
+    The question is embedded and matched to the top-k complaint chunks.
+
+    These chunks are inserted into a custom prompt.
+
+    A local or HuggingFace LLM generates an answer grounded in those chunks.
+
+🖼️ Interface Features
+
+    ✅ Text box to ask questions
+
+    ✅ "Ask" button to submit
+
+    ✅ Answer area powered by an LLM
+
+    ✅ "📚 Show Sources" expander reveals chunks used
+
+    ✅ "🧹 Clear" button resets the session
+
+📊 Evaluation
+
+Manual evaluation is available in evaluation_report.md, with:
+
+    Sample questions
+
+    Generated answers
+
+    Retrieved sources
+
+    Quality scores (1–5)
+
+    Comments/Analysis
+
+🔒 Limitations & Future Work
+
+    No live feedback or streaming yet
+
+    Chunk reranking could improve relevance
+
+    Could support multilingual queries
+
+🤝 Acknowledgments
+
+    CFPB for the public dataset
+
+    Hugging Face
+
+    LangChain
+
+    Streamlit
